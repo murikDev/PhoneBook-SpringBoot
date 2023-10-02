@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <meta th:name="_csrf" th:content="${_csrf.token}"/>
+</head>
+<body>
+      <div th:fragment="home">
+          <header class="p-3 text-bg-dark">
+              <div class="container">
+                  <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
+                      <a href="/contact" class="d-flex align-items-center mb-2 mb-lg-0 text-white text-decoration-none">
+                          <span class="fs-4">Contacts Application</span>
+                      </a>
+
+
+
+                      <th:block th:if="${user==null}">
+                          <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
+                              <li><a href="#" class="nav-link px-2 text-white">Biz barada</a></li>
+                          </ul>
+                        <a href="/user/login" class="btn btn-outline-light me-2">Içeri gir</a>
+                        <a href="/user/register" class="btn btn-warning">Hasap aç</a>
+                      </th:block>
+
+                      <th:block th:unless="${user==null}">
+
+                          <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
+
+                              <th:block th:if="${user.isAdmin()==true}">
+                                  <li><a href="/admin/users" class="nav-link px-2 text-white">Users</a></li>
+                              </th:block>
+
+                              <th:block th:if="${user.isCreate()==true}">
+                                  <li><a href="/contact/new" class="nav-link px-2 text-white">Täze kontact döret</a></li>
+                              </th:block>
+
+                              <li><a href="#" class="nav-link px-2 text-white">Biz barada</a></li>
+                          </ul>
+
+                          <form class="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3" role="search">
+                              <input type="search" class="form-control form-control-dark text-bg-dark" id="nameOrSurname" name="keyword" placeholder="Gozle...(Ady ya Familiyasy)" aria-label="Search">
+                          </form>
+
+                          <a th:href="@{/user/profile}" th:text="${user.username}" class="btn btn-outline-light me-2"></a>
+                          <form class="btn" th:action="@{/user/logout}" th:method="POST">
+                              <input type="hidden" name="_csrf" value="${_csrf.token}">
+                              <input type="submit" class="btn btn-warning" value="Çyk"/>
+                          </form>
+                      </th:block>
+                  </div>
+              </div>
+          </header>
+      </div>
+
+      <div th:fragment="login">
+          <header class="p-3 text-bg-dark">
+              <div class="container">
+                  <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
+                      <a href="/contact" class="d-flex align-items-center mb-2 mb-lg-0 text-white text-decoration-none">
+                          <span class="fs-4">Contacts Application</span>
+                      </a>
+
+                      <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
+                          <li><a href="#" class="nav-link px-2 text-white">Biz barada</a></li>
+                      </ul>
+                  </div>
+              </div>
+          </header>
+      </div>
+</body>
+</html>

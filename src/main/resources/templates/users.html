@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <link th:href="@{/css/bootstrap.min.css}" rel="stylesheet">
+    <meta charset="UTF-8">
+    <title>Users</title>
+</head>
+<body>
+
+    <div th:insert="~{blocks/header :: login}"></div>
+
+    <div class="container my-3" id="tables">
+
+        <div class="bd-example-snippet bd-code-snippet">
+            <div class="bd-example">
+                <table id class="table table-striped">
+                    <thead id="thead">
+                        <tr>
+                            <th scope="col">Username</th>
+                            <th scope="col">Password</th>
+                            <th scope="col">date Of Created</th>
+                        </tr>
+                    </thead>
+                    <tbody id="tbody" th:each="us : ${users}">
+                        <form th:method="POST" th:action="@{/admin/user/{id}(id=${us.id})}" th:object="${us}">
+                            <tr>
+                                <td th:text="${us.username}"></td>
+                                <td th:text="${us.password}"></td>
+                                <td th:text="${us.getDateOfCreated().toString()}"></td>
+<!--                                <td><input type="checkbox" th:checked="${us.active}" th:value="${us.active}"></td>-->
+<!--                                <td><input type="submit" value="save"></td>-->
+                                <td><a th:href="@{/admin/user/{id}/edit(id=${us.id})}" class="link-body-emphasis text-decoration-none">update</a></td>
+                            </tr>
+                        </form>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+    </div>
+
+    <div th:insert="~{blocks/footer :: copy}"></div>
+
+</body>
+</html>

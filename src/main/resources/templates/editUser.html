@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title th:text="${user.username}"></title>
+    <link th:href="@{/css/bootstrap.min.css}" rel="stylesheet">
+</head>
+<body>
+
+    <div th:insert="~{blocks/header :: login}"></div>
+    <div class="container">
+
+
+
+        <form th:method="POST" th:action="@{/admin/user/{id}(id=${user.id})}" th:object="${user}">
+
+            <div class="bd-example-snippet bd-code-snippet">
+                <div class="bd-example">
+                    <table id class="table table-striped">
+                        <thead id="thead">
+                        <tr>
+                            <th scope="col">Username</th>
+                            <th scope="col">Password</th>
+                            <th scope="col">date Of Created</th>
+                        </tr>
+                        </thead>
+                        <tbody id="tbody">
+                            <tr>
+                                <td th:text="${user.username}"></td>
+                                <td th:text="${user.password}"></td>
+                                <td th:text="${user.getDateOfCreated().toString()}"></td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" th:value="${active}" th:field="*{active}" id="active">
+                        <label class="form-check-label" for="active">Active</label>
+                    </div>
+
+                    <div th:object="${form}">
+
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" th:value="${admin}" th:field="*{admin}" id="admin">
+                            <label class="form-check-label" for="admin">Role Admin</label>
+                        </div>
+
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" th:value="${delete}" th:field="*{delete}" id="delete">
+                            <label class="form-check-label" for="delete">Role Delete</label>
+                        </div>
+
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" th:value="${create}" th:field="*{create}" id="create">
+                            <label class="form-check-label" for="create">Role Create</label>
+                        </div>
+                        <input type="submit" value="save">
+                    </div>
+                </div>
+
+<!--            <label for="active">Active: </label>-->
+<!--            <input type="checkbox" th:field="*{active}" th:value="${active}" id="active"><br>-->
+
+
+<!--                <label for="admin">Admin: </label>-->
+<!--                <input type="checkbox" th:field="*{admin}" th:value="${admin}" id="admin"><br>-->
+
+<!--                <label for="delete">Delete: </label>-->
+<!--                <input type="checkbox" th:field="*{delete}" th:value="${delete}" id="delete"><br>-->
+
+<!--                <label for="create">Create: </label>-->
+<!--                <input type="checkbox" th:field="*{create}" th:value="${create}" id="create"><br>-->
+
+
+            </div>
+
+
+        </form>
+    </div>
+
+
+    <div th:insert="~{blocks/footer :: copy}"></div>
+
+</body>
+</html>

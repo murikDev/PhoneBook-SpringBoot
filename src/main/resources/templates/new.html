@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <link th:href="@{/css/bootstrap.min.css}" rel="stylesheet">
+    <link th:href="@{/css/my.css}" rel="stylesheet">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Taze contact doret</title>
+</head>
+<body>
+
+    <div th:insert="~{blocks/header :: login}"></div>
+
+    <div class="container" id="newContactDiv">
+        <form th:method="POST" th:action="@{/contact}" th:object="${contact}">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="card mb-12">
+                        <div class="card-body text-center">
+                            <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-chat/ava3.webp" alt="avatar"
+                                 class="rounded-circle img-fluid" style="width: 150px;">
+
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="col-sm-3">
+                                        <p class="mb-0">Name</p>
+                                    </div>
+                                    <div class="col-sm-9">
+                                        <input type="text" th:field="*{name}" class="form-control">
+                                    </div>
+                                </div>
+                                <br>
+                                <div class="row">
+                                    <div class="col-sm-3">
+                                        <p class="mb-0">Surname</p>
+                                    </div>
+                                    <div class="col-sm-9">
+                                        <input type="text" th:field="*{surname}" class="form-control">
+                                    </div>
+                                </div>
+                                <br>
+                                <div th:object="${form}">
+                                    <div  th:each="phone, itemStat : *{phones}">
+                                        <div class="row">
+                                            <div class="col-sm-3">
+                                                <p class="mb-0" th:text="${phone.getPhoneType().getType()}">Phone</p>
+                                            </div>
+                                            <div class="col-sm-9">
+                                                <input type="text" th:field="*{phones[__${itemStat.index}__].phoneNumber}" class="form-control">
+                                            </div>
+                                        </div>
+                                        <br>
+                                    </div>
+                                    <div class="d-grid gap-2">
+                                        <input type="submit" class="btn btn-primary"  value="Giriz">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+
+
+    <div th:insert="~{blocks/footer :: copy}"></div>
+
+</body>
+</html>

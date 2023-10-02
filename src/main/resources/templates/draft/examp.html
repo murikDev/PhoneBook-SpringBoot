@@ -1,0 +1,131 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <link th:href="@{/css/my.css}" rel="stylesheet">
+    <link th:href="@{/css/bootstrap.min.css}" rel="stylesheet">
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+
+<!--    <header>-->
+<!--        <div class="d-flex flex-column flex-md-row align-items-center pb-3 mb-4 border-bottom">-->
+<!--            <a href="/contact" class="d-flex align-items-center link-body-emphasis text-decoration-none">-->
+<!--                <span class="fs-4">Contacts Application</span>-->
+<!--            </a>-->
+
+<!--            <nav class="d-inline-flex mt-2 mt-md-0 ms-md-auto">-->
+<!--                <form class="me-3 py-2 link-body-emphasis text-decoration-none"  th:action="@{/contact/search}" th:method="GET">-->
+<!--                    <input type="search" name="keyword" th:value="${keyword}"  placeholder="Gozle...(Ady ya Familiyasy)" size="50" >-->
+<!--                    <button type="submit" class="btn btn-dark" >Search</button>-->
+<!--                </form>-->
+<!--                <a class="me-3 py-2 link-body-emphasis text-decoration-none" href="/contact/new">Taze Contact doret</a>-->
+<!--                <a class="me-3 py-2 link-body-emphasis text-decoration-none" href="#">Biz Barada</a>-->
+<!--            </nav>-->
+<!--        </div>-->
+<!--    </header>-->
+
+<!--    <div class="container">-->
+<!--        <form th:method="POST" th:action="@{/contact/{id}(id=${contact.id})}" th:object="${contact}">-->
+<!--            <div class="row">-->
+<!--                <div class="col-lg-12">-->
+<!--                    <div class="card mb-12">-->
+<!--                        <div class="card-body text-center">-->
+<!--                            <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-chat/ava3.webp" alt="avatar"-->
+<!--                                 class="rounded-circle img-fluid" style="width: 150px;">-->
+
+<!--                            <div class="card-body">-->
+<!--                                <div class="row">-->
+<!--                                    <div class="col-sm-3">-->
+<!--                                        <p class="mb-0">Name</p>-->
+<!--                                    </div>-->
+<!--                                    <div class="col-sm-9">-->
+<!--                                        <input type="text" th:field="*{name}" class="form-control">-->
+<!--                                    </div>-->
+<!--                                </div>-->
+<!--                                <br>-->
+<!--                                <div class="row">-->
+<!--                                    <div class="col-sm-3">-->
+<!--                                        <p class="mb-0">Surname</p>-->
+<!--                                    </div>-->
+<!--                                    <div class="col-sm-9">-->
+<!--                                        <input type="text" th:field="*{surname}" class="form-control">-->
+<!--                                    </div>-->
+<!--                                </div>-->
+<!--                                <br>-->
+<!--                                <div th:object="${form}">-->
+<!--                                    <div class="form-group" th:each="phone, itemStat : ${form.phones}">-->
+<!--                                        <div class="row">-->
+<!--                                            <div class="col-sm-3">-->
+<!--                                                <p class="mb-0" th:text="${phone.getPhoneType().getType()}">Phone</p>-->
+<!--                                            </div>-->
+<!--                                            <div class="col-sm-9">-->
+<!--                                                <input type="text" th:field="*{phones[__${itemStat.index}__].phoneNumber}" class="form-control" id="phoneNumber" >-->
+<!--                                            </div>-->
+<!--                                        </div>-->
+<!--                                        <br>-->
+<!--                                    </div>-->
+<!--                                    <div class="d-grid gap-2">-->
+<!--                                        <input type="submit" class="btn btn-primary"  value="Uytget">-->
+<!--                                    </div>-->
+<!--                                </div>-->
+<!--                            </div>-->
+<!--                        </div>-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--        </form>-->
+<!--    </div>-->
+
+    <div th:insert="~{blocks/header :: login}"></div>
+
+    <div class="bd-example-snippet bd-code-snippet">
+        <div class="bd-example">
+            <table  class="table table-striped">
+                <thead>
+                <tr>
+                    <th scope="col">id</th>
+                    <th scope="col">First</th>
+                    <th scope="col">Last</th>
+                </tr>
+                </thead>
+                <tbody id="tbody">
+                <tr th:each="contact : ${contacts}">
+                    <td scope="col" th:text="${contact.id}">id</td>
+                    <td scope="col" th:text="${contact.name}">First</td>
+                    <td scope="col" th:text="${contact.surname}">Last</td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+
+    <div th:insert="~{blocks/footer :: copy}"></div>
+
+
+    <script type="text/javascript">
+        $(document).ready(function() {
+        $.ajax({
+           type : "GET",
+           contentType : "application/json",
+           url : "/api/allcontacts",
+           cache : false,
+           timeout : 600000,
+           success : function(data) {
+            console.log(data);
+           },
+           error : function(e) {
+            alert(e);
+           }
+          });
+        });
+    </script>
+
+
+</body>
+</html>

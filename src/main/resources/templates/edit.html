@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <link th:href="@{/css/bootstrap.min.css}" rel="stylesheet">
+    <link th:href="@{/css/my.css}" rel="stylesheet">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title th:text="${contact.name}"></title>
+</head>
+<body>
+
+    <div th:insert="~{blocks/header :: login}"></div>
+
+    <div class="container">
+        <h1>Maglumatlary Uytget</h1>
+        <form th:method="POST" th:action="@{/contact/{id}(id=${contact.id})}" th:object="${contact}">
+            <div class="form-group">
+                <label for="phoneNumber">Name</label>
+                <input type="text" th:field="*{name}" class="form-control" id="name" placeholder="Ady">
+                <div th:if="${#fields.hasErrors('name')}" th:errors="*{name}">Name error</div>
+            </div>
+            <br>
+            <br>
+            <div class="form-group">
+                <label for="surname">Surname</label>
+                <input type="text" th:field="*{surname}" class="form-control" id="surname" placeholder="Familyasy">
+                <div th:if="${#fields.hasErrors('surname')}" th:errors="*{surname}">Surname error</div>
+            </div>
+            <br>
+            <br>
+            <div th:object="${form}">
+                <div class="form-group" th:each="phone, itemStat : ${form.phones}">
+                    <label for="phoneNumber" th:text="${phone.phoneType.getType()}">phoneType</label>
+                    <input type="text" th:field="*{phones[__${itemStat.index}__].phoneNumber}" class="form-control" id="phoneNumber" >
+                    <br>
+                    <br>
+                </div>
+                <br>
+                <br>
+                <button type="submit" class="btn btn-primary">Update</button>
+            </div>
+        </form>
+    </div>
+
+    <div th:insert="~{blocks/footer :: copy}"></div>
+
+</body>
+</html>
+
+<!--<td><input th:field="*{phones[__${itemStat.index}__].phoneNumber}" /></td>-->
+
+<!--<td><input th:field="*{phones[__${itemStat.index}__].id}" /></td>
+Using enums in a spring thymeleaf
+-->

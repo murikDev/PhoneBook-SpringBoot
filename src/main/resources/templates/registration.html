@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <link th:href="@{/css/bootstrap.min.css}" rel="stylesheet">
+    <meta charset="UTF-8">
+    <title>Agza bol</title>
+</head>
+<body>
+    <div th:insert="~{blocks/header :: login}"></div>
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-9 col-md-7 col-lg-5 mx-auto">
+                <div class="card border-0 shadow rounded-3 my-5">
+                    <div class="card-body p-4 p-sm-5 bg-dark">
+                        <h5 class="card-title text-center mb-5 fw-light fs-5 text-white">Agza bol</h5>
+                        <form th:method="POST" th:action="@{/user/register}" th:object="${registerForm}">
+                            <div class="form-floating mb-3">
+                                <input type="text" th:field="*{username}" class="form-control" id="floatingInput">
+                                <label for="floatingInput">Ady</label>
+                            </div>
+                            <div class="form-floating mb-3">
+                                <input type="password" th:field="*{password}" class="form-control" id="floatingPassword">
+                                <label for="floatingPassword">Açar sözi</label>
+                            </div>
+                            <div class="d-grid">
+                                <button class="btn btn-primary btn-login text-uppercase fw-bold" type="submit">
+                                    Agza bol
+                                </button>
+                            </div>
+                            <hr class="my-4">
+                            <div class="d-grid mb-2">
+                                <p class="text-center text-white">Hasabyn barmy?</p>
+                                <a class="btn btn-google btn-login text-uppercase fw-bold text-white" th:href="@{/user/login}">
+                                    Içeri gir
+                                </a>
+                            </div>
+                            <div class="alert alert-warning" th:if="${#fields.hasErrors()}" th:errors="*{username}"></div>
+                            <div class="alert alert-warning" th:if="${#fields.hasErrors()}" th:errors="*{password}">error</div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+<!--    <form th:method="POST" th:action="@{/user/register}" th:object="${registerForm}">-->
+<!--        <label for="username">Adyňyz</label>-->
+<!--        <input th:field="*{username}"  type="text" id="username">-->
+<!--&lt;!&ndash;        <span th:if="${#fields.hasErrors()}" th:errors="*{deliveryName}">NameError</span>&ndash;&gt;-->
+
+<!--        <br>-->
+<!--        <br>-->
+<!--        <label for="password">Açarsöziňiz</label>-->
+<!--        <input th:field="*{password}" type="password" id="password">-->
+<!--&lt;!&ndash;        <span th:if="${#fields.hasErrors()}" th:errors="*{deliveryPhoneNumber}">PhoneNumberError</span>&ndash;&gt;-->
+<!--        <br>-->
+<!--        <br>-->
+<!--        <label for="confirm">Açarsöziňizi tassyklaň</label>-->
+<!--        <input th:field="*{confirm}" type="password" id="confirm">-->
+<!--&lt;!&ndash;        <span th:if="${#fields.hasErrors()}" th:errors="*{deliveryPhoneNumber}">PhoneNumberError</span>&ndash;&gt;-->
+<!--        <br>-->
+<!--        <br>-->
+<!--        <input type="submit" value="Agza bol">-->
+<!--    </form>-->
+
+
+    <div th:insert="~{blocks/footer :: copy}"></div>
+</body>
+</html>
